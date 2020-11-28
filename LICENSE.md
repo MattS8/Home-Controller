@@ -1,2 +1,2 @@
 
-Copyright (C) 2020 Matt
+Copyright (C) 2020 Matthew Steinhardt
