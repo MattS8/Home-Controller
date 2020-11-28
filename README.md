@@ -43,7 +43,7 @@ HFR005 |	The controller shall apply system-specific actions based on instruction
 AFR001	| The App shall display the status of connected systems.	
 AFR002	| The App shall send actions to turn on/off connected systems.	
 AFR003	| The App shall support time-based commands.	
-AFR004	| The App shall support an authentication system for communitcating with the server. 	
+AFR004	| The App shall support an authentication system for communitcating with the server. | This will most likely used the old "client secret token" model to support Firebase Realtime Database on Arduino.	
 
 ## Non-Functional Requirements
 
