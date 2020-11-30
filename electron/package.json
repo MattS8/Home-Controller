@@ -1,0 +1,22 @@
+{
+  "name": "home-controller",
+  "version": "0.1.0",
+  "description": "Smart controller for internet-connected home systems.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "enable": "echo Set-ExecutionPolicy -ExecutionPolicy Unrestricted"
+  },
+  "keywords": [
+    "electron"
+  ],
+  "author": "matts8",
+  "license": "ISC",
+  "dependencies": {
+    "@popperjs/core": "^2.5.4",
+    "bootstrap": "^5.0.0-alpha3",
+    "jquery": "^3.5.1",
+    "keytar": "^7.2.0",
+    "popper.js": "^1.16.1"
+  }
+}
