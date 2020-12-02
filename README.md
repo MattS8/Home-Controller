@@ -64,8 +64,37 @@ AFR004	| The App shall support an authentication system for communitcating with 
 ## Future Features
 | Feature | Description|
 | ------ | ------ |
-Garage Door | Support	Add the ability to monitor the status of the garage door and open/close it on command.
+Garage Door Support | Add the ability to monitor the status of the garage door and open/close it on command.
 Sprinkler Shutoff on Rain | A feature that will automatically turn off sprinklers when rain is detected. The sprinklers will not turn back on for X hours after the rain has subsided.
+
+
+## Data Structures
+The following is a general description of all data structures used to communicate information between the backend server, frontend application, and arduino devices. **Note:** While I will try and keep these as up-to-date as possible, the latest implementation of these datastructures can be found by viewing Firebase Realtimedatabase.
+
+### System
+| Variable Name | Type| Description|
+| ------ | ------ | ------ |
+type | String | Systems are currently grouped by types for easier organization on the front end. (i.e. multiple sprinkler valves would all be under the "Sprinkler" system type.)
+schedule | Schedule | Holds information pertaining to when the system should apply specific settings. *(see below)*
+currentSettings | Settings | Holds information about the current settings applied to the arduino device. This is specifically left abstract to allow for flexible implementation of future devices that require unique settings.
+enabled | Boolean | Determines whether the current system is plugged in and ready to use. Initial implementation of this feature is most likely going to be a manual switch that users can check or uncheck. If unchecked, the frontend application will appropriately handle signifying that the device isn't currently ready for remote control.
+
+### Schedule
+| Variable Name | Type| Description|
+| ------ | ------ | ------ |
+type | enum<TYPE> | One of: *WEEKLY* or *MONTHLY*. If the schedule is weekly, the *scheduleList* will contain 7 entries (one for each day of the week). If the schedule is monthly, the *scheduleList* will contain 31 entries.
+scheduleList | List<Pair<Settings, Time>> | The list containing all the times the system should apply new settings.
+
+### Time
+| Variable Name | Type| Description|
+| ------ | ------ | ------ |
+start | Long | The start time (measured in milliseconds since epoch).
+duration | Long | The number of milliseconds until this time period is up. After the duration expires, the device should revert to its original settings.
+
+### Settings
+| Variable Name | Type| Description|
+| ------ | ------ | ------ |
+options | List<Pair<String, Any>> | A flexible list of option values. Frontend applications can determine how to display this option by checking the string value. 
 
 
 License
