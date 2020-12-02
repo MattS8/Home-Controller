@@ -69,7 +69,7 @@ Sprinkler Shutoff on Rain | A feature that will automatically turn off sprinkler
 
 
 ## Data Structures
-The following is a general description of all data structures used to communicate information between the backend server, frontend application, and arduino devices. **Note:** While I will try and keep these as up-to-date as possible, the latest implementation of these datastructures can be found by viewing Firebase Realtimedatabase.
+The following is a general description of all data structures used to communicate information between the backend server, frontend application, and arduino devices. **Note:** While I will try and keep these as up-to-date as possible, the latest implementation of these datastructures can be found by viewing [Firebase Realtimedatabase](https://console.firebase.google.com/u/0/project/home-controller-286c0/database/home-controller-286c0/data).
 
 ### System
 | Variable Name | Type| Description|
