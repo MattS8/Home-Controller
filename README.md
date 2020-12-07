@@ -74,7 +74,10 @@ The following is a general description of all data structures used to communicat
 ### System
 | Variable Name | Type| Description|
 | ------ | ------ | ------ |
-type | String | Systems are currently grouped by types for easier organization on the front end. (i.e. multiple sprinkler valves would all be under the "Sprinkler" system type.)
+uid | String | A unique idendification value
+name | String | The human-readable value that distinguishes systems. Unlike the system uid, multiple systems could theoretically share the same name. 
+group | String | Systems can be grouped for better organization on front end applications. These are user-defined.
+type | String | Systems are classified by types to allow front end applications to properly display supported settings/features for the specific device. (i.e. multiple sprinkler valves would all be under the "Sprinkler" system type.)
 schedule | Schedule | Holds information pertaining to when the system should apply specific settings. *(see below)*
 currentSettings | Settings | Holds information about the current settings applied to the arduino device. This is specifically left abstract to allow for flexible implementation of future devices that require unique settings.
 enabled | Boolean | Determines whether the current system is plugged in and ready to use. Initial implementation of this feature is most likely going to be a manual switch that users can check or uncheck. If unchecked, the frontend application will appropriately handle signifying that the device isn't currently ready for remote control.
