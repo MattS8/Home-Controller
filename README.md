@@ -30,46 +30,64 @@ This project is designed to control various home systems via an internet-connect
 
 | Requirement ID | Requirement Statement | Comments|
 | ------ | ------ | ------ |
-HFR001	| The controller shall keep track of the status of every connected system.	
-HFR002	| The controller shall report the status of every connected system to a server.	
-HFR003	| The controller shall support the addition or removal of any supported system.	
-HFR004	| The controller shall support schedule-based actions for any connected systems. | This will probably require the device to fetch the current time from server on every boot-up.
-HFR005 |	The controller shall apply system-specific actions based on instructions from a server.	| The initial “system-specific” actions will just include turning said system on/off.
+HFR001	| Keep track of the status of every connected system.	
+HFR002	| Report the status of every connected system to server backend.	
+HFR003	| Support the addition or removal of any supported system.	
+HFR004	| Support schedule-based actions for any connected systems. | This will probably require the device to fetch the current time from server on every boot-up.
+HFR005    | Apply system-specific actions based on instructions from a server.	| The initial “system-specific” actions will just include turning said system on/off.
 
 ### Application Controller FRs:
 
 | Requirement ID | Requirement Statement | Comments|
 | ------ | ------ | ------ |
-AFR001	| The App shall display the status of connected systems.	
-AFR002	| The App shall send actions to turn on/off connected systems.	
-AFR003	| The App shall support time-based commands.	
-AFR004	| The App shall support an authentication system for communitcating with the server. | This will most likely used the old "client secret token" model to support Firebase Realtime Database on Arduino.	
+DFR001	| Provide a list of connected systems.
+DFR002	| Display the status of connected systems.	
+DFR003	| Send actions to turn on/off connected systems.	
+DFR004	| Send time-based commands for systems that support it.	
+DFR005	| Support an authentication system for communitcating with the server. | This will most likely used the old "client secret token" model to support Firebase Realtime Database on Arduino.	
+
+### Android Application Controller FRs:
+| Requirement ID | Requirement Statement | Comments|
+| ------ | ------ | ------ |
+AFR001	| Provide a list of connected systems.
+AFR002    | Display the status of connected systems.
+AFR003    | Send all supported actions to supported systems.
+AFR004    | Support time-based commands.
+AFR005    | Support an authentication system for communitcating with the server. | This will most likely used the old "client secret token" model to support Firebase Realtime Database on Arduino.
+AFR006    | Support push notifications for changes to connected systems.
 
 ## Non-Functional Requirements
 
 ### Hardware Controller NFRs:
-- The controller will consist of an ESP8266 for Wi-Fi connection
-- The controller will also consist of an additional Arduino device for extra pin outputs
-- The controller must connect/interface with a Firebase backend
-- The controller must save all relevant state data to flash memory in the event of an unexpected shutdown
+- Controller will consist of an ESP8266 for Wi-Fi connection
+- Controller will also consist of an additional Arduino device for extra pin outputs
+- Controller must connect/interface with a Firebase backend
+- Controller must save all relevant state data to flash memory in the event of an unexpected shutdown
 - Likewise, the controller must load relevant state data from flash memory if any exists
 
-### Application Controller NFRs:
-- The app must be built using Electron framework
-- The app should succinctly show the state of all connected systems
-- The app should have a list of systems, organized by categories of system types
-- The app should allow the user to use a date/time picker to set up automatic schedule-based actions
-- The app should be responsive and constantly up to date with the latest status from the backend server
+### Desktop Application Controller NFRs:
+- Built using Electron framework
+- Should succinctly show the state of all connected systems
+- Have a list of systems, organized by categories of system types
+- Allow the user to use a date/time picker to set up automatic schedule-based actions
+- Should be responsive and constantly up to date with the latest status from the backend server
+
+### Android Application Controller NFRs:
+- Have a "dashboard" view showing the satus of most common connected systems.
+- Widget support for controlling connected systems.
+- Granular control for push notifications on a system-by-system basis.
 
 ## Future Features
 | Feature | Description|
 | ------ | ------ |
-Garage Door Support | Add the ability to monitor the status of the garage door and open/close it on command.
-Sprinkler Shutoff on Rain | A feature that will automatically turn off sprinklers when rain is detected. The sprinklers will not turn back on for X hours after the rain has subsided.
+Garage Door Support           | Add the ability to monitor the status of the garage door and open/close it on command.
+Sprinkler Shutoff on Rain     | A feature that will automatically turn off sprinklers when rain is detected. The sprinklers will not turn back on for X hours after the rain has subsided.
+Kitty Door Support            | Add the ability to monitor and control the kitty door.
+Solar Panel Support           | Add the ability to monitor solar panel temperature.  
 
 
 ## Data Structures
-The following is a general description of all data structures used to communicate information between the backend server, frontend application, and arduino devices. **Note:** While I will try and keep these as up-to-date as possible, the latest implementation of these datastructures can be found by viewing [Firebase Realtimedatabase](https://console.firebase.google.com/u/0/project/home-controller-286c0/database/home-controller-286c0/data).
+The following is a general description of all data structures used to communicate information between the backend server, frontend applications, and arduino devices. **Note:** While I will try and keep these as up-to-date as possible, the latest implementation of these datastructures can be found by viewing [Firebase Realtimedatabase](https://console.firebase.google.com/u/0/project/home-controller-286c0/database/home-controller-286c0/data).
 
 ### System
 | Variable Name | Type| Description|
