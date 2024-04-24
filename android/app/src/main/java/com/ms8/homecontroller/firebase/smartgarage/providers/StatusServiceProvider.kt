@@ -34,9 +34,8 @@ object StatusServiceProvider {
         val db = FirebaseDatabase.getInstance()
         return callbackFlow {
             val listenerRegistration = db.reference
-                .child(GARAGES)
-                .child(HOME_GARAGE)
-                .child(STATUS)
+                .child("status")
+                .child("home_garage")
                 .addValueEventListener(object : ValueEventListener {
                     override fun onCancelled(error: DatabaseError) {
                         cancel(message = "Cancelled Smart Garage Status Listener - ${error.message}",
@@ -46,6 +45,7 @@ object StatusServiceProvider {
                     @Suppress("UNCHECKED_CAST")
                     override fun onDataChange(snapshot: DataSnapshot) {
                         try {
+                            Log.i(TAG, "Snapshot: $snapshot")
                             val snapshotValues = snapshot.value as Map<String, Any?>
                             val newStatus = snapshotValues[TYPE] as String
                             trySend(_statusMap[newStatus]!!)

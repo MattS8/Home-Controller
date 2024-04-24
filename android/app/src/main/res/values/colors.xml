@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="closing">#60a917</color>
+    <color name="opening">#a0522d</color>
     <color name="open">#D60031</color>
     <color name="close">#008a00</color>
     <color name="hw_enabled">#FFEB3B</color>

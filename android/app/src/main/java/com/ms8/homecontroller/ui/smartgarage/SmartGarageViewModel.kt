@@ -12,14 +12,10 @@ import com.ms8.homecontroller.firebase.smartgarage.providers.StatusServiceProvid
 import kotlinx.coroutines.launch
 
 class SmartGarageViewModel : ViewModel() {
-    private var _status = MutableLiveData<GarageStatus>().apply {
-        value = GarageStatus.CLOSED
-    }
+    private var _status = MutableLiveData<GarageStatus>()
     val status: LiveData<GarageStatus> = _status
 
-    private var _prevStatus = MutableLiveData<GarageStatus>().apply {
-        value = GarageStatus.CLOSED
-    }
+    private var _prevStatus = MutableLiveData<GarageStatus>()
     val prevStatus: LiveData<GarageStatus> = _status
 
     init {
