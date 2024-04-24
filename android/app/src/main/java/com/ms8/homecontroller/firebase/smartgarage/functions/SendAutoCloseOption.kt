@@ -8,6 +8,7 @@ import com.ms8.homecontroller.firebase.smartgarage.data.Constants.AUTO_CLOSE_OPT
 import com.ms8.homecontroller.firebase.smartgarage.data.Constants.CONTROLLER
 import com.ms8.homecontroller.firebase.smartgarage.data.Constants.GARAGES
 import com.ms8.homecontroller.firebase.smartgarage.data.Constants.HOME_GARAGE
+import com.ms8.homecontroller.firebase.smartgarage.data.Constants.SYSTEMS
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -27,7 +28,7 @@ object SendAutoCloseOption {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
         database.reference
-            .child(GARAGES)
+            .child(SYSTEMS)
             .child(HOME_GARAGE)
             .child(CONTROLLER)
             .child(AUTO_CLOSE_OPTIONS)

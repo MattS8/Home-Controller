@@ -1,6 +1,7 @@
 package com.ms8.homecontroller.firebase.smartgarage.data
 
 object Constants {
+    const val SYSTEMS = "systems"
     const val DEBUG = "debug"
     const val CONTROLLER = "controller"
     const val HOME_GARAGE = "home_garage"

@@ -6,10 +6,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.ms8.homecontroller.firebase.smartgarage.data.Constants.GARAGES
-import com.ms8.homecontroller.firebase.smartgarage.data.Constants.HOME_GARAGE
-import com.ms8.homecontroller.firebase.smartgarage.data.Constants.STATUS
-import com.ms8.homecontroller.firebase.smartgarage.data.Constants.TYPE
+import com.ms8.homecontroller.firebase.smartgarage.data.Constants
 import com.ms8.homecontroller.firebase.smartgarage.data.GarageStatus
 import com.ms8.homecontroller.firebase.smartgarage.functions.SendDebugMessage
 import kotlinx.coroutines.cancel
@@ -34,8 +31,8 @@ object StatusServiceProvider {
         val db = FirebaseDatabase.getInstance()
         return callbackFlow {
             val listenerRegistration = db.reference
-                .child("status")
-                .child("home_garage")
+                .child(Constants.STATUS)
+                .child(Constants.HOME_GARAGE)
                 .addValueEventListener(object : ValueEventListener {
                     override fun onCancelled(error: DatabaseError) {
                         cancel(message = "Cancelled Smart Garage Status Listener - ${error.message}",
@@ -47,7 +44,7 @@ object StatusServiceProvider {
                         try {
                             Log.i(TAG, "Snapshot: $snapshot")
                             val snapshotValues = snapshot.value as Map<String, Any?>
-                            val newStatus = snapshotValues[TYPE] as String
+                            val newStatus = snapshotValues[Constants.TYPE] as String
                             trySend(_statusMap[newStatus]!!)
                         } catch (e: Exception) {
                             //TODO: Track error within the app's UI
@@ -59,9 +56,8 @@ object StatusServiceProvider {
             awaitClose {
                 Log.d(TAG, "Cancelling garage status listener")
                 db.reference
-                    .child(GARAGES)
-                    .child(HOME_GARAGE)
-                    .child(STATUS)
+                    .child(Constants.STATUS)
+                    .child(Constants.HOME_GARAGE)
                     .removeEventListener(listenerRegistration)
             }
         }

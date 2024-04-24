@@ -18,7 +18,9 @@ import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.ms8.homecontroller.R
 import com.ms8.homecontroller.databinding.FragmentSmartGarageBinding
+import com.ms8.homecontroller.firebase.smartgarage.data.ActionType
 import com.ms8.homecontroller.firebase.smartgarage.data.GarageStatus
+import com.ms8.homecontroller.firebase.smartgarage.functions.SendGarageAction
 
 class SmartGarageFragment : Fragment(), View.OnClickListener {
 
@@ -79,8 +81,12 @@ class SmartGarageFragment : Fragment(), View.OnClickListener {
         _binding = null
     }
 
-    override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
+    override fun onClick(view: View) {
+        when (view.id) {
+            R.id.btnOpen -> SendGarageAction.run(ActionType.OPEN)
+            R.id.btnClose -> SendGarageAction.run(ActionType.CLOSE)
+            //TODO: Handle opening the side drawer
+        }
     }
 
     private fun getStatusColor(status: GarageStatus): Int {
