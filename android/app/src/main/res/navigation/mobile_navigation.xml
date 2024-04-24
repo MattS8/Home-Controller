@@ -3,13 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
-
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.ms8.homecontroller.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+    app:startDestination="@+id/navigation_dashboard">
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -18,8 +12,14 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.ms8.homecontroller.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_kitty_door"
+        android:name="com.ms8.homecontroller.ui.kittydoor.KittyDoorFragment"
+        android:label="@string/title_kitty_door"
+        tools:layout="@layout/fragment_kitty_door" />
+
+    <fragment
+        android:id="@+id/navigation_smart_garage"
+        android:name="com.ms8.homecontroller.ui.smartgarage.SmartGarageFragment"
+        android:label="@string/title_smart_garage"
+        tools:layout="@layout/fragment_smart_garage" />
 </navigation>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:id="@+id/tvStatusLabel"
+            style="@style/Theme.HomeController.TextAppearance.Status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/garage_door_is"
+            app:layout_constraintBottom_toTopOf="@+id/btnOpen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            style="@style/Theme.HomeController.TextAppearance.Status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/closing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvStatusLabel"
+            tools:text="TESTING" />
+
+        <ImageView
+            android:id="@+id/progGarageStatus"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="8dp"
+            android:alpha="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/tvStatus"
+            app:layout_constraintTop_toTopOf="@+id/tvStatus"
+            app:layout_constraintVertical_bias="1"
+            app:srcCompat="@drawable/av_progress"
+            tools:tint="@color/open"
+            android:importantForAccessibility="no" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/btnOpen"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="32dp"
+            android:minHeight="75dp"
+            android:minWidth="150dp"
+
+            android:backgroundTint="@color/open"
+            app:layout_constraintBottom_toTopOf="@+id/btnClose"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintVertical_chainStyle="packed"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_expand_less_24dp"
+                android:importantForAccessibility="no" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/open"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:minHeight="75dp"
+            android:minWidth="150dp"
+            android:text="@string/close"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/close"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnOpen"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_expand_more_24dp"
+                android:importantForAccessibility="no" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/close"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <!--        <Button-->
+        <!--            android:id="@+id/btnOpen"-->
+        <!--            style="@style/Widget.AppCompat.Button.Colored"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="32dp"-->
+        <!--            android:layout_marginLeft="32dp"-->
+        <!--            android:layout_marginEnd="32dp"-->
+        <!--            android:layout_marginRight="32dp"-->
+        <!--            android:layout_marginBottom="32dp"-->
+        <!--            android:minHeight="75dp"-->
+        <!--            android:minWidth="150dp"-->
+        <!--            android:text="@string/open"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            app:backgroundTint="@color/colorOpen"-->
+        <!--            app:layout_constraintBottom_toTopOf="@+id/btnClose"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintHorizontal_bias="0.5"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:layout_constraintVertical_bias="0.75"-->
+        <!--            app:layout_constraintVertical_chainStyle="packed" />-->
+
+        <!--        <Button-->
+        <!--            android:id="@+id/btnClose"-->
+        <!--            style="@style/Widget.AppCompat.Button.Colored"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="32dp"-->
+        <!--            android:layout_marginLeft="32dp"-->
+        <!--            android:layout_marginEnd="32dp"-->
+        <!--            android:layout_marginRight="32dp"-->
+        <!--            android:minHeight="75dp"-->
+        <!--            android:minWidth="150dp"-->
+        <!--            android:text="@string/close"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            app:backgroundTint="@color/colorClose"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintHorizontal_bias="0.5"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/btnOpen" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
