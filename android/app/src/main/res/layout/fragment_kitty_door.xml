@@ -64,7 +64,7 @@
         tools:text="1024" />
 
     <ImageView
-        android:id="@+id/progGarageStatus"
+        android:id="@+id/progDoorStatus"
         android:layout_width="42dp"
         android:layout_height="42dp"
         android:layout_marginTop="8dp"
@@ -95,7 +95,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progGarageStatus"
+        app:layout_constraintTop_toBottomOf="@+id/progDoorStatus"
         app:layout_constraintVertical_bias="0.213999999"
         app:layout_constraintVertical_chainStyle="packed">
 

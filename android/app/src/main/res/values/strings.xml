@@ -14,4 +14,6 @@
     <string name="automatic">Automatic</string>
     <string name="garage_door_is">Garage Door is:</string>
     <string name="title_smart_garage">Garage Door</string>
+    <string name="hw_override_enabled">Hardware Override Enabled</string>
+    <string name="hw_override_enabled_msg">" Remote opening/closing is disabled while hardware override is enabled."</string>
 </resources>

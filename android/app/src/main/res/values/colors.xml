@@ -24,4 +24,22 @@
     <color name="lightPrimaryVariant">#E4EBF4</color>
     <color name="lightSecondary">#CCD3CF</color>
     <color name="lightSecondaryVariant">#C3CCCF</color>
+    <color name="lightOpen">#4CAF50</color>
+    <color name="lightClose">#F44336</color>
+
+    <!--    Kitty Door - Auto Enable Colors     -->
+    <color name="autoEnabled">#FFFFFF</color>
+    <color name="autoDisabled">#C5C7C2</color>
+    <color name="autoChecked">#AED581</color>
+    <color name="autoPressed">#7A7A7A</color>
+    <color name="autoDisabledPressed">#555353</color>
+    <color name="autoTextPressed">#1B1B1B</color>
+    <color name="autoText">#408A00</color>
+    <color name="autoTextDisabled">#717171</color>
+    <color name="autoTextDisabledPressed">#090909</color>
+    <color name="autoColorOpenPressed">#550000</color>
+    <color name="autoColorOpenDisabled">#855956</color>
+    <color name="autoColorOpenDisabledPressed">#7C5451</color>
+    <color name="autoColorCloseDisabled">#5F714A</color>
+    <color name="autoColorCloseDisabledPressed">#3D5322</color>
 </resources>

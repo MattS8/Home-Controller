@@ -18,4 +18,8 @@
         <item name="android:textColor">?colorAccent</item>
         <item name="android:textSize">28sp</item>
     </style>
+
+    <style name="Theme.HomeController.TextAppearance.FlashbarWarning.Positive" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/warningYellow</item>
+    </style>
 </resources>
