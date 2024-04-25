@@ -4,6 +4,7 @@ import android.util.ArrayMap
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.ms8.homecontroller.firebase.smartgarage.data.Constants
@@ -27,12 +28,17 @@ object StatusServiceProvider {
         _statusMap[GarageStatus.OPENING.name] = GarageStatus.OPENING
     }
 
+    private fun getDatabaseReference() : DatabaseReference {
+        return FirebaseDatabase.getInstance().reference
+            .child(Constants.SYSTEMS)
+            .child(Constants.HOME_GARAGE)
+            .child(Constants.STATUS)
+    }
+
     suspend fun getStatus(): Flow<GarageStatus> {
         val db = FirebaseDatabase.getInstance()
         return callbackFlow {
-            val listenerRegistration = db.reference
-                .child(Constants.STATUS)
-                .child(Constants.HOME_GARAGE)
+            val listenerRegistration = getDatabaseReference()
                 .addValueEventListener(object : ValueEventListener {
                     override fun onCancelled(error: DatabaseError) {
                         cancel(message = "Cancelled Smart Garage Status Listener - ${error.message}",
@@ -42,7 +48,6 @@ object StatusServiceProvider {
                     @Suppress("UNCHECKED_CAST")
                     override fun onDataChange(snapshot: DataSnapshot) {
                         try {
-                            Log.i(TAG, "Snapshot: $snapshot")
                             val snapshotValues = snapshot.value as Map<String, Any?>
                             val newStatus = snapshotValues[Constants.TYPE] as String
                             trySend(_statusMap[newStatus]!!)
@@ -55,9 +60,7 @@ object StatusServiceProvider {
                 })
             awaitClose {
                 Log.d(TAG, "Cancelling garage status listener")
-                db.reference
-                    .child(Constants.STATUS)
-                    .child(Constants.HOME_GARAGE)
+                getDatabaseReference()
                     .removeEventListener(listenerRegistration)
             }
         }
