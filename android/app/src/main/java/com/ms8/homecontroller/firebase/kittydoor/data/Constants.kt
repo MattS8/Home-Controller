@@ -1,22 +1,21 @@
 package com.ms8.homecontroller.firebase.kittydoor.data
 
 object Constants {
+    const val ACTION = "action"
+    const val CONTROLLER = "controller"
     const val DOOR_STATE = "door_state"
     const val SYSTEMS = "systems"
-    const val TYPE = "type"
-    const val LIGHT_LEVEL_VAL = "level"
     const val STATUS = "status"
-    const val KITTY_DOOR = "kitty_door"
-    const val HW_OVERRIDE = "kitty_door_hw_override"
-    const val LIGHT_LEVEL = "kitty_door_light_level"
+    const val KITTY_DOOR = "kitty_door_v2"
+    const val HW_OVERRIDE = "hw_override"
+    const val LIGHT_LEVEL = "light_level"
     const val OPT_CLOSE_LIGHT_LVL = "closeLightLevel"
-    const val COMMAND = "command"
     const val OPT_DELAY_CLOSING = "delayClosing"
     const val OPT_DELAY_CLOSING_VAL = "delayClosingVal"
     const val OPT_DELAY_OPENING = "delayOpening"
     const val OPT_DELAY_OPENING_VAL = "delayOpeningVal"
     const val OPT_OPEN_LIGHT_LVL = "openLightLevel"
-    const val OVERRIDE_AUTO = "overrideAuto"
+    const val OVERRIDE_AUTO = "override_auto"
     const val TIMESTAMP = "timestamp"
 
     const val CMD_OPEN = "openKittyDoor"

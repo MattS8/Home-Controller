@@ -1,4 +1,5 @@
 <resources>
+    <string name="default_web_id" translatable="false">381877255197-niva4gcoocqme9n3h87k558g1i026b58.apps.googleusercontent.com</string>
     <string name="app_name">Home Controller</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -16,4 +17,8 @@
     <string name="title_smart_garage">Garage Door</string>
     <string name="hw_override_enabled">Hardware Override Enabled</string>
     <string name="hw_override_enabled_msg">" Remote opening/closing is disabled while hardware override is enabled."</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="doors">Doors</string>
+    <string name="solar_panels">Solar Panels</string>
 </resources>

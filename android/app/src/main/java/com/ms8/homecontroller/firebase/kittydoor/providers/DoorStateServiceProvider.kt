@@ -41,6 +41,7 @@ object DoorStateServiceProvider {
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         try {
+                            Log.i(TAG, "Snapshot: $snapshot")
                             val newStatus = snapshot.child(Constants.STATUS).value as String
                             trySend(_statusMap[newStatus]!!)
                         } catch (e: Exception) {

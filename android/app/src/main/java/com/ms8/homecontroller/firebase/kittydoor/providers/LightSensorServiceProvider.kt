@@ -18,6 +18,8 @@ object LightSensorServiceProvider {
 
     private fun getDatabaseReference(): DatabaseReference {
         return FirebaseDatabase.getInstance().reference
+            .child(Constants.SYSTEMS)
+            .child(Constants.KITTY_DOOR)
             .child(Constants.STATUS)
             .child(Constants.LIGHT_LEVEL)
     }
@@ -29,7 +31,7 @@ object LightSensorServiceProvider {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         try {
                             Log.i(TAG, "Snapshot: $snapshot")
-                            val newLevel = snapshot.child(Constants.LIGHT_LEVEL_VAL).value as Number
+                            val newLevel = snapshot.child(Constants.STATUS).value as Number
                             trySend(newLevel.toInt())
                         } catch (e: Exception) {
                             //TODO: Track error within the app's UI

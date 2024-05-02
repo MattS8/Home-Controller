@@ -1,22 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment">
 
-    <TextView
-        android:id="@+id/text_dashboard"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:scrollbars="vertical">
+
+        <ImageView
+            android:id="@+id/imgDoorIcon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_smart_garage_64"
+            app:layout_constraintBottom_toTopOf="@id/crdDoors"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/tvDoorsLabel"
+            style="@style/Theme.HomeController.TextAppearance.Status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/doors"
+            app:layout_constraintStart_toEndOf="@id/imgDoorIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imgDoorIcon"
+            app:layout_constraintBottom_toBottomOf="@id/imgDoorIcon"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="packed" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/crdDoors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/imgDoorIcon"
+            app:layout_constraintBottom_toTopOf="@id/imgSolarReader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tvKittyDoorStatusLabel"
+                    style="@style/Theme.HomeController.TextAppearance.Status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/kitty_door_is"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toTopOf="@id/tvKittyDoorHwOverrideLabel"
+                    app:layout_constraintEnd_toStartOf="@+id/tvKittyDoorStatus"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvGarageDoorStatusLabel"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tvKittyDoorStatus"
+                    style="@style/Theme.HomeController.TextAppearance.Status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@color/closing"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvKittyDoorStatusLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tvKittyDoorStatusLabel"
+                    app:layout_constraintTop_toTopOf="@+id/tvKittyDoorStatusLabel"
+                    tools:text="TESTING" />
+
+                <TextView
+                    android:id="@+id/tvKittyDoorHwOverrideLabel"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/hardware_override"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tvKittyDoorHwOverride"
+                    app:layout_constraintHorizontal_bias="0.36"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvKittyDoorStatusLabel"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tvKittyDoorHwOverride"
+                    android:textSize="14sp"
+                    android:textStyle="italic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@color/closing"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvKittyDoorHwOverrideLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/tvKittyDoorHwOverrideLabel"
+                    app:layout_constraintTop_toTopOf="@+id/tvKittyDoorHwOverrideLabel"
+                    tools:text="TESTING" />
+
+                <TextView
+                    android:id="@+id/tvGarageDoorStatusLabel"
+                    style="@style/Theme.HomeController.TextAppearance.Status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/garage_door_is"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toTopOf="@id/tvKittyDoorStatusLabel"
+                    app:layout_constraintEnd_toStartOf="@+id/tvGarageDoorStatus"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tvGarageDoorStatus"
+                    style="@style/Theme.HomeController.TextAppearance.Status"
+                    android:textSize="24sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@color/closing"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvGarageDoorStatusLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvGarageDoorStatusLabel"
+                    app:layout_constraintTop_toTopOf="@+id/tvGarageDoorStatusLabel"
+                    tools:text="TESTING" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageView
+            android:id="@+id/imgSolarReader"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/solor_reader_24"
+            app:layout_constraintTop_toBottomOf="@id/crdDoors"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.0"
+            app:tint="@color/white" />
+        <TextView
+            android:id="@+id/tvSolarReaderLabel"
+            style="@style/Theme.HomeController.TextAppearance.Status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/solar_panels"
+            app:layout_constraintStart_toEndOf="@id/imgSolarReader"
+            app:layout_constraintTop_toTopOf="@id/imgSolarReader"
+            app:layout_constraintBottom_toBottomOf="@id/imgSolarReader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="packed" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</ScrollView>

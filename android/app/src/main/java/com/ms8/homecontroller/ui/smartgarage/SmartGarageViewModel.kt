@@ -21,7 +21,7 @@ class SmartGarageViewModel : ViewModel() {
     init {
         viewModelScope.launch {
             StatusServiceProvider.getStatus().collect { newStatus ->
-                Log.i(Constants.FLOW_TAG, "coroutine running...")
+                Log.i(Constants.FLOW_TAG, "status coroutine running...")
                 _prevStatus.value = status.value
                 _status.value = newStatus
             }

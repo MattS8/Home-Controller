@@ -11,6 +11,7 @@ import com.ms8.homecontroller.firebase.kittydoor.data.KittyOptions
 import com.ms8.homecontroller.firebase.kittydoor.providers.HardwareOverrideProvider
 import com.ms8.homecontroller.firebase.kittydoor.providers.LightSensorServiceProvider
 import com.ms8.homecontroller.firebase.kittydoor.providers.DoorStateServiceProvider
+import com.ms8.homecontroller.firebase.kittydoor.providers.OverrideAutoProvider
 import kotlinx.coroutines.launch
 
 class KittyDoorViewModel : ViewModel() {
@@ -26,25 +27,36 @@ class KittyDoorViewModel : ViewModel() {
     private var _kittyOptions = MutableLiveData<KittyOptions>()
     val kittyOptions: LiveData<KittyOptions> = _kittyOptions
 
-    private var _hwOverride = MutableLiveData<Int>()
-    val hwOverride: LiveData<Int> = _hwOverride
+    private var _hwOverride = MutableLiveData<Boolean>()
+    val hwOverride: LiveData<Boolean> = _hwOverride
+
+    private var _overrideAuto = MutableLiveData<Boolean>()
+    val overrideAuto: LiveData<Boolean> = _overrideAuto
 
     init {
         viewModelScope.launch {
-            LightSensorServiceProvider.getLightValue().collect { newLightLevel ->
-                Log.i(Constants.FLOW_TAG, "coroutine running...")
-                _lightLevel.value = newLightLevel
-            }
-
             DoorStateServiceProvider.getStatus().collect { newStatus ->
-                Log.i(Constants.FLOW_TAG, "coroutine running...")
+                Log.i(Constants.FLOW_TAG, "status coroutine running...")
                 _prevStatus.value = status.value
                 _status.value = newStatus
             }
-
+        }
+        viewModelScope.launch {
+            LightSensorServiceProvider.getLightValue().collect { newLightLevel ->
+                Log.i(Constants.FLOW_TAG, "lightLevel coroutine running...")
+                _lightLevel.value = newLightLevel
+            }
+        }
+        viewModelScope.launch {
             HardwareOverrideProvider.getHwOverride().collect {newHwOverride ->
-                Log.i(Constants.FLOW_TAG, "coroutine running...")
+                Log.i(Constants.FLOW_TAG, "hwOverride coroutine running...")
                 _hwOverride.value = newHwOverride
+            }
+        }
+        viewModelScope.launch {
+            OverrideAutoProvider.getOverrideAuto().collect {newOverrideAuto ->
+                Log.i(Constants.FLOW_TAG, "overrideAuto coroutine running...")
+                _overrideAuto.value = newOverrideAuto
             }
         }
     }

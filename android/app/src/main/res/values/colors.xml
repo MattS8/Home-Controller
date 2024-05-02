@@ -15,8 +15,9 @@
     <color name="hw_disabled">#5F5F5F</color>
     <color name="warningYellow">#ffeb3b</color>
     <color name="background">#ecf0f1</color>
+    <color name="bgDark">#0b0b0b</color>
 
-    <color name="darkPrimary">#1F1B25</color>
+    <color name="darkPrimary">#0b0b0b</color>
     <color name="darkPrimaryVariant">#1F1B55</color>
     <color name="darkSecondary">#1F3B25</color>
     <color name="darkSecondaryVariant">#3D5943</color>

@@ -40,7 +40,6 @@ android {
 }
 
 dependencies {
-    implementation("com.github.aritraroy:Flashbar:1.0.2")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -52,6 +51,12 @@ dependencies {
     implementation(libs.firebase.database.ktx)
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth.ktx)
+    implementation(libs.androidx.credentials)
+    implementation(libs.googleid)
+    implementation(libs.play.services.auth)
+    implementation(libs.firebase.auth)
+    implementation(files("/libs/Flashbar-release.aar"))
+    implementation("io.github.ParkSangGwon:range-bar-chart:0.06")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

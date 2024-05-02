@@ -1,5 +1,6 @@
 package com.ms8.homecontroller.ui.kittydoor
 
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
@@ -14,13 +15,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
-import com.andrognito.flashbar.Flashbar
+import com.ms8.flashbar.Flashbar
 import com.ms8.homecontroller.R
 import com.ms8.homecontroller.databinding.FragmentKittyDoorBinding
 import com.ms8.homecontroller.firebase.kittydoor.data.ActionType
-import com.ms8.homecontroller.firebase.kittydoor.data.Constants
 import com.ms8.homecontroller.firebase.kittydoor.data.DoorStatus
 import com.ms8.homecontroller.firebase.kittydoor.functions.SendKittyDoorAction
+import com.ms8.homecontroller.ui.FlashbarActivity
+import com.ms8.homecontroller.ui.utils.Utils
 
 class KittyDoorFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentKittyDoorBinding? = null
@@ -29,26 +31,12 @@ class KittyDoorFragment : Fragment(), View.OnClickListener {
 
     // Status variables
     private var progDrawable: AnimatedVectorDrawableCompat? = null
-    private val statusColors = ArrayMap<DoorStatus, Int>()
-
-    // Flashbar notification
-    private var flashbar: Flashbar? = null
-
-    init {
-        statusColors[DoorStatus.CLOSED] = R.color.close
-        statusColors[DoorStatus.CLOSING] = R.color.closing
-        statusColors[DoorStatus.OPEN] = R.color.open
-        statusColors[DoorStatus.OPENING] = R.color.opening
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val kittyDoorViewModel =
-            ViewModelProvider(this)[KittyDoorViewModel::class.java]
-
         _binding = FragmentKittyDoorBinding.inflate(inflater, container, false)
         val root: View = binding.root
         _binding?.apply {
@@ -70,21 +58,29 @@ class KittyDoorFragment : Fragment(), View.OnClickListener {
             })
         }
 
-        kittyDoorViewModel.lightLevel.observe(viewLifecycleOwner, Observer { newLightLevel ->
-            updateLightLevelUI(newLightLevel,
-                kittyDoorViewModel.kittyOptions.value?.openLightLevel,
-                kittyDoorViewModel.kittyOptions.value?.closeLightLevel)
-        })
-        kittyDoorViewModel.status.observe(viewLifecycleOwner, Observer { newStatus ->
-            updateStatusUI(newStatus)
-        })
-        kittyDoorViewModel.hwOverride.observe(viewLifecycleOwner, Observer { newHwOverride ->
-            updateHwOverrideUI(newHwOverride)
-        })
+        // Observer viewModel
+        requireActivity().let { act ->
+            val kittyDoorViewModel =
+                ViewModelProvider(act)[KittyDoorViewModel::class.java]
+
+            kittyDoorViewModel.lightLevel.observe(viewLifecycleOwner, Observer { newLightLevel ->
+                updateLightLevelUI(newLightLevel,
+                    kittyDoorViewModel.kittyOptions.value?.openLightLevel,
+                    kittyDoorViewModel.kittyOptions.value?.closeLightLevel)
+            })
+            kittyDoorViewModel.status.observe(viewLifecycleOwner, Observer { newStatus ->
+                updateStatusUI(newStatus)
+            })
+            kittyDoorViewModel.hwOverride.observe(viewLifecycleOwner, Observer { newHwOverride ->
+                updateHwOverrideUI(newHwOverride)
+            })
+            kittyDoorViewModel.overrideAuto.observe(viewLifecycleOwner, Observer { newOverrideAuto ->
+                updateOverrideAutoUI(newOverrideAuto)
+            })
+        }
+
         return root
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -92,95 +88,130 @@ class KittyDoorFragment : Fragment(), View.OnClickListener {
     }
 
     //    <!> On Click Functions <!>
-
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.btnOpen -> OpenKittyDoor()
-            R.id.btnClose -> SendKittyDoorAction.run(ActionType.CLOSE_DOOR)
-            R.id.btnEnableAuto -> SendKittyDoorAction.run(ActionType.SET_TO_AUTO)
+            R.id.btnOpen -> openKittyDoor()
+            R.id.btnClose -> closeKittyDoor()
+            R.id.btnEnableAuto -> enableAuto()
             R.id.btnCheckLightLevel -> SendKittyDoorAction.run(ActionType.READ_LIGHT_LEVEL)
         }
     }
 
-    private fun OpenKittyDoor() {
+    private fun openKittyDoor() {
         val kittyDoorViewModel =
             ViewModelProvider(this)[KittyDoorViewModel::class.java]
-        val hwOverride = kittyDoorViewModel.hwOverride.value
+        if (kittyDoorViewModel.hwOverride.value == true) {
+            showHwOverrideNotification()
+        } else {
+            SendKittyDoorAction.run(ActionType.OPEN_DOOR)
+        }
+    }
 
-        when (hwOverride) {
-            Constants.HW_OVERRIDE_ENABLED -> {
-                showHwOverrideNotification()
-            }
-            Constants.HW_OVERRIDE_DISABLED -> {
-                SendKittyDoorAction.run(ActionType.OPEN_DOOR)
-            }
-            else -> {
-                Log.e("KittyDoor", "Unknown hw Override state ($hwOverride)")
-            }
+    private fun closeKittyDoor() {
+        val kittyDoorViewModel =
+            ViewModelProvider(this)[KittyDoorViewModel::class.java]
+        if (kittyDoorViewModel.hwOverride.value == true) {
+            showHwOverrideNotification()
+        } else {
+            SendKittyDoorAction.run(ActionType.CLOSE_DOOR)
+        }
+    }
+
+    private fun enableAuto() {
+        val kittyDoorViewModel =
+            ViewModelProvider(this)[KittyDoorViewModel::class.java]
+        if (kittyDoorViewModel.hwOverride.value == true) {
+            showHwOverrideNotification()
+        } else {
+            SendKittyDoorAction.run(ActionType.SET_TO_AUTO)
         }
     }
 
 //    <!> UI Updaters <!>
-    private fun updateHwOverrideUI(newHwOverride: Int) {
+    private fun updateOverrideAutoUI(overrideAutoEnabled: Boolean) {
         _binding?.let { b ->
             context?.let {ctx ->
                 val states = arrayOf(intArrayOf(android.R.attr.state_enabled),
                     intArrayOf(-android.R.attr.state_enabled),
                     intArrayOf(-android.R.attr.state_checked),
                     intArrayOf(android.R.attr.state_pressed))
+                val colors = if(!overrideAutoEnabled)
+                    intArrayOf(
+                        ContextCompat.getColor(ctx, R.color.autoEnabled),
+                        ContextCompat.getColor(ctx, R.color.autoDisabled),
+                        ContextCompat.getColor(ctx, R.color.autoChecked),
+                        ContextCompat.getColor(ctx, R.color.autoPressed)
+                    ) else
+                    intArrayOf(
+                        ContextCompat.getColor(ctx, R.color.autoDisabled),
+                        ContextCompat.getColor(ctx, R.color.autoDisabled),
+                        ContextCompat.getColor(ctx, R.color.autoDisabled),
+                        ContextCompat.getColor(ctx, R.color.autoDisabledPressed)
+                    )
+                val textColors = if (!overrideAutoEnabled)
+                    intArrayOf(
+                        ContextCompat.getColor(ctx, R.color.autoText),
+                        ContextCompat.getColor(ctx, R.color.autoTextDisabled),
+                        ContextCompat.getColor(ctx, R.color.autoText),
+                        ContextCompat.getColor(ctx, R.color.autoTextPressed)
+                    ) else
+                    intArrayOf(
+                        ContextCompat.getColor(ctx, R.color.autoTextDisabled),
+                        ContextCompat.getColor(ctx, R.color.autoTextDisabled),
+                        ContextCompat.getColor(ctx, R.color.autoTextDisabled),
+                        ContextCompat.getColor(ctx, R.color.autoTextDisabledPressed)
+                    )
 
-                when (newHwOverride) {
-                    Constants.HW_OVERRIDE_ENABLED -> {
-                        val colors = intArrayOf(
-                            ContextCompat.getColor(ctx, R.color.autoEnabled),
-                            ContextCompat.getColor(ctx, R.color.autoDisabled),
-                            ContextCompat.getColor(ctx, R.color.autoChecked),
-                            ContextCompat.getColor(ctx, R.color.autoPressed)
-                        )
-                        val textColors = intArrayOf(
-                            ContextCompat.getColor(ctx, R.color.autoText),
-                            ContextCompat.getColor(ctx, R.color.autoTextDisabled),
-                            ContextCompat.getColor(ctx, R.color.autoText),
-                            ContextCompat.getColor(ctx, R.color.autoTextPressed)
-                        )
-                        val closeColors = intArrayOf(
-                            ContextCompat.getColor(ctx, R.color.close),
-                            ContextCompat.getColor(ctx, R.color.close),
-                            ContextCompat.getColor(ctx, R.color.close),
-                            ContextCompat.getColor(ctx, R.color.closing)
-                        )
+                val openColors = if (overrideAutoEnabled)
+                    intArrayOf(
+                        ContextCompat.getColor(ctx, R.color.open),
+                        ContextCompat.getColor(ctx, R.color.open),
+                        ContextCompat.getColor(ctx, R.color.open),
+                        ContextCompat.getColor(ctx, R.color.opening)
+                    ) else
+                    intArrayOf(
+                        ContextCompat.getColor(ctx, R.color.autoColorOpenDisabled),
+                        ContextCompat.getColor(ctx, R.color.autoColorOpenDisabled),
+                        ContextCompat.getColor(ctx, R.color.autoColorOpenDisabled),
+                        ContextCompat.getColor(ctx, R.color.autoColorOpenDisabledPressed)
+                    )
+                val closeColors = if (overrideAutoEnabled)
+                    intArrayOf(
+                        ContextCompat.getColor(ctx, R.color.close),
+                        ContextCompat.getColor(ctx, R.color.close),
+                        ContextCompat.getColor(ctx, R.color.close),
+                        ContextCompat.getColor(ctx, R.color.closing)
+                    ) else
+                    intArrayOf(
+                        ContextCompat.getColor(ctx, R.color.autoColorCloseDisabled),
+                        ContextCompat.getColor(ctx, R.color.autoColorCloseDisabled),
+                        ContextCompat.getColor(ctx, R.color.autoColorCloseDisabled),
+                        ContextCompat.getColor(ctx, R.color.autoColorCloseDisabledPressed)
+                    )
 
-                    }
-                    Constants.HW_OVERRIDE_DISABLED -> {
-                        val color = intArrayOf(
-                            ContextCompat.getColor(ctx, R.color.autoDisabled),
-                            ContextCompat.getColor(ctx, R.color.autoDisabled),
-                            ContextCompat.getColor(ctx, R.color.autoDisabled),
-                            ContextCompat.getColor(ctx, R.color.autoDisabledPressed)
-                        )
-                        val textColors = intArrayOf(
-                            ContextCompat.getColor(ctx, R.color.autoTextDisabled),
-                            ContextCompat.getColor(ctx, R.color.autoTextDisabled),
-                            ContextCompat.getColor(ctx, R.color.autoTextDisabled),
-                            ContextCompat.getColor(ctx, R.color.autoTextDisabledPressed)
-                        )
-                        val closeColors = intArrayOf(
-                            ContextCompat.getColor(ctx, R.color.autoColorCloseDisabled),
-                            ContextCompat.getColor(ctx, R.color.autoColorCloseDisabled),
-                            ContextCompat.getColor(ctx, R.color.autoColorCloseDisabled),
-                            ContextCompat.getColor(ctx, R.color.autoColorCloseDisabledPressed)
-                        )
-                    }
-                    else -> {
-                        Log.w("KittyDoor", "Unable to update UI with hwOverride code $newHwOverride")
-                    }
-                }
+                b.btnOpen.backgroundTintList = ColorStateList(states, openColors)
+                b.btnClose.backgroundTintList = ColorStateList(states, closeColors)
+                b.btnEnableAuto.backgroundTintList = ColorStateList(states, colors)
+                b.btnEnableAuto.setTextColor(ColorStateList(states,textColors))
             }
         }
-
-
     }
 
+    private fun updateHwOverrideUI(hwOverrideEnabled: Boolean) {
+        _binding?.let { b ->
+            if (hwOverrideEnabled) {
+                b.tvHardwareOverrideVal.text = getString(R.string.enabled)
+                b.tvHardwareOverrideVal.setTextColor(ContextCompat.getColor(
+                    b.tvHardwareOverrideVal.context,
+                    R.color.hw_enabled))
+            } else {
+                b.tvHardwareOverrideVal.text = getString(R.string.disabled)
+                b.tvHardwareOverrideVal.setTextColor(ContextCompat.getColor(
+                    b.tvHardwareOverrideVal.context,
+                    R.color.hw_disabled))
+            }
+        }
+    }
     private fun updateLightLevelUI(newLightLevel: Int,
                                    openLightLevel: Int?,
                                    closeLightLevel: Int?) {
@@ -199,7 +230,7 @@ class KittyDoorFragment : Fragment(), View.OnClickListener {
         context?.let { ctx ->
             // Set status text
             binding.tvStatus.text = newStatus.name
-            val statusColor = ContextCompat.getColor(ctx, getStatusColor(newStatus))
+            val statusColor = ContextCompat.getColor(ctx, Utils.getStatusColor(newStatus))
             binding.tvStatus.setTextColor(statusColor)
 
             // Show/hide animated progress drawable
@@ -224,44 +255,23 @@ class KittyDoorFragment : Fragment(), View.OnClickListener {
     //    <!> UI Helpers <!>
 
     private fun showHwOverrideNotification() {
-        activity?.let { activity ->
-            flashbar = Flashbar.Builder(activity)
-                .icon(R.drawable.ic_warning_yellow_24dp)
-                .iconColorFilter(ContextCompat.getColor(activity, R.color.warningYellow))
-                .showIcon()
-                .title(R.string.hw_override_enabled)
-                .message(R.string.hw_override_enabled_msg)
-                .positiveActionText(android.R.string.ok)
-                .positiveActionTapListener(object : Flashbar.OnActionTapListener {
-                    override fun onActionTapped(bar: Flashbar) {
-                        flashbar?.dismiss()
-                    }
-                })
-                .barDismissListener(object : Flashbar.OnBarDismissListener {
-                    override fun onDismissProgress(bar: Flashbar, progress: Float) {}
-
-                    override fun onDismissed(bar: Flashbar, event: Flashbar.DismissEvent) {
-                        flashbar = null
-                    }
-
-                    override fun onDismissing(bar: Flashbar, isSwiped: Boolean) {}
-                })
-                .backgroundColor(ContextCompat.getColor(activity, R.color.background))
-                .titleAppearance(com.google.android.material.R.style.TextAppearance_MaterialComponents_Headline5)
-                .messageAppearance(com.google.android.material.R.style.TextAppearance_MaterialComponents_Body2)
-                .positiveActionTextAppearance(R.style.Theme_HomeController_TextAppearance_FlashbarWarning_Positive)
-                .negativeActionTextAppearance(com.google.android.material.R.style.TextAppearance_MaterialComponents_Body1)
-                .build()
-            flashbar?.show()
+        activity?.let { act ->
+            if (act is FlashbarActivity) {
+                act.showFlashbar(Flashbar.Builder(act)
+                    .icon(R.drawable.ic_warning_yellow_24dp)
+                    .iconColorFilter(ContextCompat.getColor(act, R.color.warningYellow))
+                    .backgroundColor(ContextCompat.getColor(act, com.ms8.flashbar.R.color.slate_black))
+                    .showIcon()
+                    .title(R.string.hw_override_enabled)
+                    .message(R.string.hw_override_enabled_msg)
+                    .positiveActionText(android.R.string.ok)
+                    .titleAppearance(com.google.android.material.R.style.TextAppearance_MaterialComponents_Headline5)
+                    .messageAppearance(com.google.android.material.R.style.TextAppearance_MaterialComponents_Body2)
+                    .positiveActionTextAppearance(R.style.Theme_HomeController_TextAppearance_FlashbarWarning_Positive)
+                    .negativeActionTextAppearance(com.google.android.material.R.style.TextAppearance_MaterialComponents_Body1))
+            } else {
+                Log.e("KDF", "Parent activity does not implement FlashbarActivity!")
+            }
         }
-    }
-
-    private fun getStatusColor(status: DoorStatus): Int {
-        statusColors[status]?.let {
-            return it
-        }
-
-        Log.e("KittyDoor", "Unable to get status color from ${status.name}!")
-        return R.color.white
     }
 }

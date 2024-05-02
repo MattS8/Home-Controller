@@ -9,6 +9,7 @@ import com.google.firebase.database.ValueEventListener
 import com.ms8.homecontroller.firebase.kittydoor.data.Constants
 import com.ms8.homecontroller.firebase.smartgarage.functions.SendDebugMessage
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
@@ -17,18 +18,21 @@ object HardwareOverrideProvider {
 
     private fun getDatabaseReference() : DatabaseReference {
         return FirebaseDatabase.getInstance().reference
+            .child(Constants.SYSTEMS)
+            .child(Constants.KITTY_DOOR)
             .child(Constants.STATUS)
             .child(Constants.HW_OVERRIDE)
     }
 
-    suspend fun getHwOverride(): Flow<Int> {
+    suspend fun getHwOverride(): Flow<Boolean> {
         return callbackFlow {
             val listenerRegistration = getDatabaseReference()
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         try {
-                            val newMode = snapshot.child(Constants.TYPE).value as Number
-                            trySend(newMode.toInt())
+                            Log.i(TAG, "Snapshot: $snapshot")
+                            val newMode = snapshot.child(Constants.STATUS).value as Boolean
+                            trySend(newMode)
                         } catch (e: Exception) {
                             //TODO: Track error within the app's UI
                             Log.e(TAG, "$e")
@@ -40,8 +44,11 @@ object HardwareOverrideProvider {
                         cancel(message = "Cancelled HW Override Listener - ${error.message}",
                             cause = error.toException())
                     }
-
                 })
+            awaitClose {
+                Log.d(TAG, "Cancelling Kitty Door hw override listener")
+                getDatabaseReference().removeEventListener(listenerRegistration)
+            }
         }
     }
 }
