@@ -1,26 +1,29 @@
 package com.ms8.homecontroller.ui
 
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
 import androidx.activity.OnBackPressedCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.mikepenz.materialdrawer.Drawer
+import com.mikepenz.materialdrawer.DrawerBuilder
 import com.ms8.flashbar.Flashbar
 import com.ms8.homecontroller.R
 import com.ms8.homecontroller.databinding.ActivityMainBinding
 import com.ms8.homecontroller.ui.kittydoor.KittyDoorViewModel
 import com.ms8.homecontroller.ui.smartgarage.SmartGarageViewModel
 
-class MainActivity : AppCompatActivity(), FlashbarActivity {
+class MainActivity : AppCompatActivity(), HomeControllerActivity {
 
     private lateinit var binding: ActivityMainBinding
 
     private var flashbar: Flashbar? = null
+    private var drawer: Drawer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,9 +48,10 @@ class MainActivity : AppCompatActivity(), FlashbarActivity {
         navView.setupWithNavController(navController)
         onBackPressedDispatcher.addCallback(onBackPressedCallback = object : OnBackPressedCallback(enabled = true) {
             override fun handleOnBackPressed() {
+                Log.i("TESTING", "BEEP BOOP")
                 flashbar?.dismiss()
+                drawer?.closeDrawer()
             }
-
     })
 
         //        This call preloads  the viewModels before paging to them
@@ -58,6 +62,7 @@ class MainActivity : AppCompatActivity(), FlashbarActivity {
     }
 
     override fun showFlashbar(newFlashbar: Flashbar.Builder) {
+        Log.i("##TEST", "Showing flashbar!")
         flashbar?.dismiss()
         val onDismiss = object : Flashbar.OnActionTapListener {
             override fun onActionTapped(bar: Flashbar) {
@@ -85,5 +90,14 @@ class MainActivity : AppCompatActivity(), FlashbarActivity {
 
     override fun hideFlashbar() {
         flashbar?.dismiss()
+    }
+
+    override fun setOptionsDrawer(newDrawer: Drawer) {
+        drawer?.closeDrawer()
+        drawer = newDrawer
+    }
+
+    override fun openDrawer() {
+        drawer?.openDrawer()
     }
 }

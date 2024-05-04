@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
-import androidx.collection.ArrayMap
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,7 +20,7 @@ import com.ms8.homecontroller.databinding.FragmentKittyDoorBinding
 import com.ms8.homecontroller.firebase.kittydoor.data.ActionType
 import com.ms8.homecontroller.firebase.kittydoor.data.DoorStatus
 import com.ms8.homecontroller.firebase.kittydoor.functions.SendKittyDoorAction
-import com.ms8.homecontroller.ui.FlashbarActivity
+import com.ms8.homecontroller.ui.HomeControllerActivity
 import com.ms8.homecontroller.ui.utils.Utils
 
 class KittyDoorFragment : Fragment(), View.OnClickListener {
@@ -256,7 +255,7 @@ class KittyDoorFragment : Fragment(), View.OnClickListener {
 
     private fun showHwOverrideNotification() {
         activity?.let { act ->
-            if (act is FlashbarActivity) {
+            if (act is HomeControllerActivity) {
                 act.showFlashbar(Flashbar.Builder(act)
                     .icon(R.drawable.ic_warning_yellow_24dp)
                     .iconColorFilter(ContextCompat.getColor(act, R.color.warningYellow))

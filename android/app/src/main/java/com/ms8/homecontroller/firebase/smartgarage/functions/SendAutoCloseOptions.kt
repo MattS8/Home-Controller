@@ -6,14 +6,13 @@ import com.google.firebase.database.FirebaseDatabase
 import com.ms8.homecontroller.firebase.smartgarage.data.AutoCloseOptions
 import com.ms8.homecontroller.firebase.smartgarage.data.Constants.AUTO_CLOSE_OPTIONS
 import com.ms8.homecontroller.firebase.smartgarage.data.Constants.CONTROLLER
-import com.ms8.homecontroller.firebase.smartgarage.data.Constants.GARAGES
 import com.ms8.homecontroller.firebase.smartgarage.data.Constants.HOME_GARAGE
 import com.ms8.homecontroller.firebase.smartgarage.data.Constants.SYSTEMS
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-object SendAutoCloseOption {
+object SendAutoCloseOptions {
     private const val TAG = "SmartGarage_AutoCloseOption"
 
     /**

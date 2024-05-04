@@ -39,4 +39,9 @@ object Utils {
         Log.e("UiUtils", "Unable to get status color from ${status.name}!")
         return R.color.white
     }
+
+    fun getGarageTimeoutProgress(timeout: Long): Int = (timeout / (15 * 60 * 1000)).toInt()
+
+    fun getGarageWarningTimeout(progress: Int) : Long  = (15 * progress * 60 * 1000).toLong()
+    fun getGarageTimeout(progress: Int): Long = (15 * (progress + 1) * 60 * 1000).toLong()
 }

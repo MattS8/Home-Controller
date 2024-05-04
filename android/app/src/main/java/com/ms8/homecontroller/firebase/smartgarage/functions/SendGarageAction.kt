@@ -26,8 +26,8 @@ object SendGarageAction {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
         database.reference
-            .child(Constants.SYSTEMS)
-            .child(Constants.HOME_GARAGE)
+            .child("garages")
+            .child("home_garage")
             .child(Constants.CONTROLLER)
             .child(Constants.ACTION)
             .setValue(

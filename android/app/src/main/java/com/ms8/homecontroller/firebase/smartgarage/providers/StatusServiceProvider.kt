@@ -30,9 +30,9 @@ object StatusServiceProvider {
 
     private fun getDatabaseReference() : DatabaseReference {
         return FirebaseDatabase.getInstance().reference
-            .child(Constants.SYSTEMS)
-            .child(Constants.HOME_GARAGE)
-            .child(Constants.STATUS)
+            .child("garages")
+            .child("home_garage")
+            .child("status")
     }
 
     suspend fun getStatus(): Flow<GarageStatus> {
@@ -49,7 +49,7 @@ object StatusServiceProvider {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         try {
                             val snapshotValues = snapshot.value as Map<String, Any?>
-                            val newStatus = snapshotValues[Constants.TYPE] as String
+                            val newStatus = snapshotValues["type"] as String
                             trySend(_statusMap[newStatus]!!)
                         } catch (e: Exception) {
                             //TODO: Track error within the app's UI

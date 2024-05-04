@@ -6,7 +6,7 @@ object Constants {
     const val DOOR_STATE = "door_state"
     const val SYSTEMS = "systems"
     const val STATUS = "status"
-    const val KITTY_DOOR = "kitty_door_v2"
+    const val KITTY_DOOR = "kitty_door"
     const val HW_OVERRIDE = "hw_override"
     const val LIGHT_LEVEL = "light_level"
     const val OPT_CLOSE_LIGHT_LVL = "closeLightLevel"

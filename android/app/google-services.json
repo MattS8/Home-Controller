@@ -1,101 +1,114 @@
 {
-    "project_info": {
-      "project_number": "381877255197",
-      "firebase_url": "https://home-controller-286c0.firebaseio.com",
-      "project_id": "home-controller-286c0",
-      "storage_bucket": "home-controller-286c0.appspot.com"
-    },
-    "client": [
-      {
-        "client_info": {
-          "mobilesdk_app_id": "1:381877255197:android:9dd59452f67d88ea4b5af4",
-          "android_client_info": {
-            "package_name": "com.ms8.homecontroller"
-          }
-        },
-        "oauth_client": [
-          {
-            "client_id": "381877255197-41egtieiq0asdmuavij27lpip0rt8ess.apps.googleusercontent.com",
-            "client_type": 1,
-            "android_info": {
-              "package_name": "com.ms8.homecontroller",
-              "certificate_hash": "9ad273625d4ff9db66469da738cb1bf1d9822bee"
-            }
-          },
-          {
-            "client_id": "381877255197-cb796t7f566k3e8qsj2dpjs9900it5bt.apps.googleusercontent.com",
-            "client_type": 1,
-            "android_info": {
-              "package_name": "com.ms8.homecontroller",
-              "certificate_hash": "d7c6eba340190a38c122f2012617b4be8c7fcc85"
-            }
-          },
-          {
-            "client_id": "381877255197-niva4gcoocqme9n3h87k558g1i026b58.apps.googleusercontent.com",
-            "client_type": 3
-          }
-        ],
-        "api_key": [
-          {
-            "current_key": "AIzaSyB374mY3x60slOz6wpA5bHCKfll3GoqmZw"
-          }
-        ],
-        "services": {
-          "appinvite_service": {
-            "other_platform_oauth_client": [
-              {
-                "client_id": "381877255197-niva4gcoocqme9n3h87k558g1i026b58.apps.googleusercontent.com",
-                "client_type": 3
-              }
-            ]
-          }
+  "project_info": {
+    "project_number": "419092477295",
+    "firebase_url": "https://smart-garage-door-3d0f1.firebaseio.com",
+    "project_id": "smart-garage-door-3d0f1",
+    "storage_bucket": "smart-garage-door-3d0f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419092477295:android:b68376528f2d0daf8ee49a",
+        "android_client_info": {
+          "package_name": "com.ms8.homecontroller"
         }
       },
-      {
-        "client_info": {
-          "mobilesdk_app_id": "1:381877255197:android:4f160323a97468274b5af4",
-          "android_client_info": {
-            "package_name": "com.ms8.kittydoor"
-          }
-        },
-        "oauth_client": [
-          {
-            "client_id": "381877255197-1l99dcjgrh0n3056qd6vmattsrqb7t91.apps.googleusercontent.com",
-            "client_type": 1,
-            "android_info": {
-              "package_name": "com.ms8.kittydoor",
-              "certificate_hash": "ec78e75466d6ec8fb0e560803180e276d2de2e29"
+      "oauth_client": [
+        {
+          "client_id": "419092477295-d50g3o5c4kk4pu7bpffmisup5i81mj17.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGmV__Po0qu7dvZ-AZOLX61jBiSgd4EnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "419092477295-51teg9721tpl6l0dujhnhhlnbldg0uuj.apps.googleusercontent.com",
+              "client_type": 3
             }
-          },
-          {
-            "client_id": "381877255197-oghfgucpi7ne0oaj1te4pqkvmep44v2c.apps.googleusercontent.com",
-            "client_type": 1,
-            "android_info": {
-              "package_name": "com.ms8.kittydoor",
-              "certificate_hash": "930874a76f0b6f3bde66c597f5644135f3fcf9ca"
-            }
-          },
-          {
-            "client_id": "381877255197-niva4gcoocqme9n3h87k558g1i026b58.apps.googleusercontent.com",
-            "client_type": 3
-          }
-        ],
-        "api_key": [
-          {
-            "current_key": "AIzaSyB374mY3x60slOz6wpA5bHCKfll3GoqmZw"
-          }
-        ],
-        "services": {
-          "appinvite_service": {
-            "other_platform_oauth_client": [
-              {
-                "client_id": "381877255197-niva4gcoocqme9n3h87k558g1i026b58.apps.googleusercontent.com",
-                "client_type": 3
-              }
-            ]
-          }
+          ]
         }
       }
-    ],
-    "configuration_version": "1"
-  }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419092477295:android:a074a4caf6f865138ee49a",
+        "android_client_info": {
+          "package_name": "com.ms8.kittydoor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "419092477295-d50g3o5c4kk4pu7bpffmisup5i81mj17.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGmV__Po0qu7dvZ-AZOLX61jBiSgd4EnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "419092477295-51teg9721tpl6l0dujhnhhlnbldg0uuj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419092477295:android:2447db692f5d3f9c8ee49a",
+        "android_client_info": {
+          "package_name": "com.ms8.smartgaragedoor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "419092477295-9ipmlgufe8sj74u0p7d0b9si42d8l9us.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ms8.smartgaragedoor",
+            "certificate_hash": "43ed77d43665038bdb0da6ae9bbc30be8ae9300f"
+          }
+        },
+        {
+          "client_id": "419092477295-kb1umk14gms28he12l7kgt3taghlbrm0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ms8.smartgaragedoor",
+            "certificate_hash": "65bd7871c8497cd4aa587b8d3ad1ac5a6f414e6d"
+          }
+        },
+        {
+          "client_id": "419092477295-d50g3o5c4kk4pu7bpffmisup5i81mj17.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGmV__Po0qu7dvZ-AZOLX61jBiSgd4EnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "419092477295-51teg9721tpl6l0dujhnhhlnbldg0uuj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
