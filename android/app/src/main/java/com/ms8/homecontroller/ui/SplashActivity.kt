@@ -43,47 +43,51 @@ class SplashActivity: AppCompatActivity() {
 
         setupProgressBar()
 
-        googleSignIn(true)
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        } else {
+            googleSignIn(true)
+            ViewModelProvider(this)[AuthViewModel::class.java]
+                .credential.observe(this) { newCredential ->
+                    when (newCredential) {
+                        null -> {
+                            Log.w(TAG, "Null credential passed!")
+                        }
+                        is PublicKeyCredential -> {
+                            TODO("Support public keys on Firebase")
+                        }
+                        is PasswordCredential -> {
+                            TODO("Support ID and password on Firebase")
+                        }
+                        is CustomCredential -> {
+                            if (newCredential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
 
-        ViewModelProvider(this)[AuthViewModel::class.java]
-            .credential.observe(this) { newCredential ->
-                when (newCredential) {
-                    null -> {
-                        Log.w(TAG, "Null credential passed!")
-                    }
-                    is PublicKeyCredential -> {
-                        TODO("Support public keys on Firebase")
-                    }
-                    is PasswordCredential -> {
-                        TODO("Support ID and password on Firebase")
-                    }
-                    is CustomCredential -> {
-                        if (newCredential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
-
-                            val idTokenCredential = GoogleIdTokenCredential
-                                .createFrom(newCredential.data)
-                            val firebaseCredential = GoogleAuthProvider.getCredential(idTokenCredential.idToken, null)
-                            FirebaseAuth.getInstance().signInWithCredential(firebaseCredential)
-                                .addOnCompleteListener { task ->
-                                    when {
-                                        task.isSuccessful -> {
-                                            val intent = Intent(this, MainActivity::class.java)
-                                            startActivity(intent)
-                                        }
-                                        else -> {
-                                            Log.e(TAG, "Unable to authenticate user with FirebaseAuth: ${task.exception}")
+                                val idTokenCredential = GoogleIdTokenCredential
+                                    .createFrom(newCredential.data)
+                                val firebaseCredential = GoogleAuthProvider.getCredential(idTokenCredential.idToken, null)
+                                FirebaseAuth.getInstance().signInWithCredential(firebaseCredential)
+                                    .addOnCompleteListener { task ->
+                                        when {
+                                            task.isSuccessful -> {
+                                                val intent = Intent(this, MainActivity::class.java)
+                                                startActivity(intent)
+                                            }
+                                            else -> {
+                                                Log.e(TAG, "Unable to authenticate user with FirebaseAuth: ${task.exception}")
+                                            }
                                         }
                                     }
-                                }
-                        } else {
+                            } else {
+                                Log.e(TAG, "Received unknown credential type: ${newCredential.type}")
+                            }
+                        }
+                        else -> {
                             Log.e(TAG, "Received unknown credential type: ${newCredential.type}")
                         }
                     }
-                    else -> {
-                        Log.e(TAG, "Received unknown credential type: ${newCredential.type}")
-                    }
                 }
-            }
+        }
     }
 
     private fun setupProgressBar() {

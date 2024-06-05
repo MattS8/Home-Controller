@@ -15,6 +15,7 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.ms8.flashbar.Flashbar
 import com.ms8.homecontroller.R
 import com.ms8.homecontroller.databinding.ActivityMainBinding
+import com.ms8.homecontroller.ui.dashboard.DashboardViewModel
 import com.ms8.homecontroller.ui.kittydoor.KittyDoorViewModel
 import com.ms8.homecontroller.ui.smartgarage.SmartGarageViewModel
 

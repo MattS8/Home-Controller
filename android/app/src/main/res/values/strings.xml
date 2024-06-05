@@ -27,4 +27,7 @@
     <string name="send_warning_after">Send Warning After:</string>
     <string name="save_settings">Save Settings</string>
     <string name="smart_garage_options">Smart Garage Options</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
+    <string name="select_date_range">Select Date Range</string>
 </resources>

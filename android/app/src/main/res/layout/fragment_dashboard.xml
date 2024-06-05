@@ -9,6 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
             android:id="@+id/imgDoorIcon"
             android:layout_width="32dp"
@@ -25,6 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed"
             app:tint="@color/white" />
 
         <TextView
@@ -35,21 +37,21 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/doors"
-            app:layout_constraintStart_toEndOf="@id/imgDoorIcon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/imgDoorIcon"
             app:layout_constraintBottom_toBottomOf="@id/imgDoorIcon"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintHorizontal_chainStyle="packed" />
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/imgDoorIcon"
+            app:layout_constraintTop_toTopOf="@id/imgDoorIcon" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/crdDoors"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/imgDoorIcon"
             app:layout_constraintBottom_toTopOf="@id/imgSolarReader"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/imgDoorIcon">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -63,8 +65,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
                     android:text="@string/kitty_door_is"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toTopOf="@id/tvKittyDoorHwOverrideLabel"
@@ -92,14 +94,14 @@
 
                 <TextView
                     android:id="@+id/tvKittyDoorHwOverrideLabel"
-                    android:textSize="16sp"
-                    android:textStyle="italic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="16dp"
                     android:text="@string/hardware_override"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
 
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tvKittyDoorHwOverride"
@@ -111,12 +113,12 @@
 
                 <TextView
                     android:id="@+id/tvKittyDoorHwOverride"
-                    android:textSize="14sp"
-                    android:textStyle="italic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:textColor="@color/closing"
+                    android:textSize="14sp"
+                    android:textStyle="italic"
                     app:layout_constraintBottom_toBottomOf="@+id/tvKittyDoorHwOverrideLabel"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -144,11 +146,11 @@
                 <TextView
                     android:id="@+id/tvGarageDoorStatus"
                     style="@style/Theme.HomeController.TextAppearance.Status"
-                    android:textSize="24sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:textColor="@color/closing"
+                    android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/tvGarageDoorStatusLabel"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -170,13 +172,14 @@
             android:layout_marginBottom="16dp"
             android:scaleType="fitXY"
             android:src="@drawable/solor_reader_24"
-            app:layout_constraintTop_toBottomOf="@id/crdDoors"
             app:layout_constraintBottom_toTopOf="@id/crdTempChart"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/crdDoors"
             app:layout_constraintVertical_bias="0.0"
             app:tint="@color/white" />
+
         <TextView
             android:id="@+id/tvSolarReaderLabel"
             style="@style/Theme.HomeController.TextAppearance.Status"
@@ -185,35 +188,35 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/solar_panels"
-            app:layout_constraintStart_toEndOf="@id/imgSolarReader"
-            app:layout_constraintTop_toTopOf="@id/imgSolarReader"
             app:layout_constraintBottom_toBottomOf="@id/imgSolarReader"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintHorizontal_chainStyle="packed" />
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/imgSolarReader"
+            app:layout_constraintTop_toTopOf="@id/imgSolarReader" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/crdTempChart"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="240dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="64dp"
             app:layout_constraintTop_toBottomOf="@id/imgSolarReader">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <com.anychart.AnyChartView
                     android:id="@+id/chartSolarPanels"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ProgressBar
                     android:id="@+id/progress_bar"
@@ -222,15 +225,28 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_margin="52dp"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/crdTempChart"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/select_date_range"
+            >
 
+        </Button>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </ScrollView>
